@@ -1,35 +1,44 @@
+import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
 import { Platform } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
-import { IconSymbol } from "@/components/ui/IconSymbol";
 import TabBarBackground from "@/components/ui/TabBarBackground";
-
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "light",
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: "absolute",
+            height: 60,
+            paddingTop: 2,
           },
-          default: {},
+          default: {
+            height: 60,
+          },
         }),
+        tabBarLabelStyle: {
+          color: "#888888", // Keep label color gray always
+          fontSize: 12,
+        },
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Conversations",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="house.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name="chatbubble"
+              size={28}
+              color={focused ? "#2A6EFF" : "#888888"} // blue if focused, else gray
+            />
           ),
         }}
       />
@@ -37,8 +46,12 @@ export default function TabLayout() {
         name="contacts"
         options={{
           title: "Contacts",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name="person"
+              size={28}
+              color={focused ? "#2A6EFF" : "#888888"}
+            />
           ),
         }}
       />
@@ -47,8 +60,12 @@ export default function TabLayout() {
         name="settings"
         options={{
           title: "Settings",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name="settings"
+              size={28}
+              color={focused ? "#2A6EFF" : "#888888"}
+            />
           ),
         }}
       />
