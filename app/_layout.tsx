@@ -27,11 +27,11 @@ export default function RootLayout() {
   }, []);
 
   useEffect(() => {
-    // if (authChecked) {
-    //   if (isAuthenticated) {
-    //     router.replace("/(tabs)");
-    //   }
-    // }
+    if (authChecked) {
+      if (isAuthenticated) {
+        router.replace("/(tabs)");
+      }
+    }
   }, [authChecked, isAuthenticated]);
 
   if (!loaded || !authChecked) {
@@ -62,8 +62,8 @@ async function getAuthToken() {
     },
   };
 
-  // return mockUser; // Logged in
-  return null; // Not logged in (for testing unauthenticated state)
+  return mockUser; // Logged in
+  // return null; // Not logged in (for testing unauthenticated state)
 }
 
 const styles = StyleSheet.create({
