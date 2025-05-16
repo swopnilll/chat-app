@@ -9,6 +9,8 @@ import {
   View,
 } from "react-native";
 
+import { createUser } from "../firebaseConfig"; // Adjust path if needed
+
 const SignUpScreen = () => {
   const router = useRouter();
 
@@ -18,14 +20,11 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignUp = async () => {
-    // Trim inputs to avoid whitespace issues
-    const trimmedFullName = fullName.trim();
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
     const trimmedConfirmPassword = confirmPassword.trim();
 
-    // Basic validation checks
-    if (!trimmedFullName) {
+    if (!fullName.trim()) {
       Alert.alert("Missing Name", "Please enter your full name.");
       return;
     }
@@ -33,25 +32,16 @@ const SignUpScreen = () => {
       Alert.alert("Missing Email", "Please enter your email address.");
       return;
     }
-    // Email format validation (simple regex)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(trimmedEmail)) {
       Alert.alert("Invalid Email", "Please enter a valid email address.");
       return;
     }
-    if (!trimmedPassword) {
-      Alert.alert("Missing Password", "Please enter your password.");
-      return;
-    }
-    if (trimmedPassword.length < 6) {
+    if (!trimmedPassword || trimmedPassword.length < 6) {
       Alert.alert(
         "Weak Password",
-        "Password should be at least 6 characters long."
+        "Password must be at least 6 characters long."
       );
-      return;
-    }
-    if (!trimmedConfirmPassword) {
-      Alert.alert("Missing Confirmation", "Please confirm your password.");
       return;
     }
     if (trimmedPassword !== trimmedConfirmPassword) {
@@ -59,12 +49,11 @@ const SignUpScreen = () => {
       return;
     }
 
-    // Passed all validations - proceed with signup logic
     try {
-      // Example: Call your signup API here
-      // await signUpUser(trimmedFullName, trimmedEmail, trimmedPassword);
-      Alert.alert("Success", "Account created successfully! Login using your email and password.");
-      router.push("/login"); // Or wherever you want to navigate after signup
+      const user = await createUser(trimmedEmail, trimmedPassword, fullName);
+      console.log("User created:", user);
+      Alert.alert("Success", "Account created successfully!");
+      router.push("/login");
     } catch (error) {
       Alert.alert(
         "Signup Failed",
@@ -76,7 +65,6 @@ const SignUpScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Back arrow at top left */}
       <Pressable style={styles.backArrow} onPress={() => router.back()}>
         <Text style={styles.backArrowText}>←</Text>
       </Pressable>
@@ -84,7 +72,6 @@ const SignUpScreen = () => {
       <Text style={styles.heading}>
         Sign up with <Text style={styles.headingUnderline}>Email</Text>
       </Text>
-
       <Text style={styles.subtitle}>
         Get chatting with friends and family today by signing up for our chat
         app!
@@ -163,7 +150,7 @@ const styles = StyleSheet.create({
   },
   headingUnderline: {
     textDecorationLine: "underline",
-    textDecorationColor: "#58C3B6", // teal underline color
+    textDecorationColor: "#58C3B6",
     textDecorationStyle: "solid",
   },
   subtitle: {
@@ -183,7 +170,6 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     paddingVertical: 8,
-    paddingHorizontal: 0,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
     fontSize: 16,
@@ -192,13 +178,13 @@ const styles = StyleSheet.create({
     marginTop: 40,
     width: "100%",
     paddingVertical: 14,
-    backgroundColor: "#58C3B6", // active teal color
+    backgroundColor: "#58C3B6",
     borderRadius: 15,
     alignItems: "center",
   },
   createButtonText: {
     fontWeight: "600",
     fontSize: 16,
-    color: "#fff", // white text for contrast
+    color: "#fff",
   },
 });

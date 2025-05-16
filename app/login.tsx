@@ -10,6 +10,8 @@ import {
   View,
 } from "react-native";
 
+import { loginUser } from "../firebaseConfig"; // adjust path as needed
+
 const LoginScreen = () => {
   const router = useRouter();
 
@@ -19,17 +21,35 @@ const LoginScreen = () => {
   // Enable login only if both fields are non-empty
   const isLoginEnabled = email.trim() !== "" && password !== "";
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!isLoginEnabled) return;
 
-    // Here you can add your login logic
-    Alert.alert("Logging in", `Email: ${email}\nPassword: ${password}`);
+    try {
+      const userCredential = await loginUser(email.trim(), password);
+      const user = userCredential.user;
+      console.log("Logged in user:", user.email);
+
+      Alert.alert(
+        "Login successful",
+        `Welcome back, ${user.displayName || "User"}!`
+      );
+
+      // ✅ Navigate to the authenticated screen (e.g., tab layout)
+      router.replace("/(tabs)");
+    } catch (error) {
+      console.error("Login error:", error);
+      let errorMessage = "An unknown error occurred.";
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+      Alert.alert("Login Failed", errorMessage);
+    }
   };
 
   return (
     <View style={styles.container}>
       {/* Back arrow */}
-      <TouchableOpacity style={styles.backArrow} onPress={() => router.back()}>
+      <TouchableOpacity style={styles.backArrow} onPress={() => router.replace("/")}>
         <Text style={styles.backArrowText}>←</Text>
       </TouchableOpacity>
 
