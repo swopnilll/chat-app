@@ -10,7 +10,7 @@ import {
   View,
 } from "react-native";
 
-import { loginUser } from "../firebaseConfig"; // adjust path as needed
+import { loginUser, resetPassword } from "../firebaseConfig"; // adjust path as needed
 
 const LoginScreen = () => {
   const router = useRouter();
@@ -128,7 +128,7 @@ const LoginScreen = () => {
       </TouchableOpacity>
 
       {/* Forgot password */}
-      <TouchableOpacity onPress={() => Alert.alert("Forgot password pressed")}>
+      <TouchableOpacity onPress={() => resetPassword(email)}>
         <Text style={styles.forgotText}>Forgot password?</Text>
       </TouchableOpacity>
     </View>

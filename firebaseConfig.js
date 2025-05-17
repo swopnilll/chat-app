@@ -4,9 +4,10 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile
+  updateProfile,
 } from "firebase/auth";
 import { Alert } from "react-native";
 
@@ -63,3 +64,16 @@ export const logoutUser = async () => {
     console.error("Error signing out:", error);
   }
 };
+
+export const resetPassword = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    Alert.alert(
+      "Success",
+      "Password reset email sent. Please check your inbox."
+    );
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    Alert.alert("Error", "Failed to send password reset email.");
+  }
+}
