@@ -36,7 +36,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name="chatbubble"
-              size={28}
+              size={20}
               color={focused ? "#2A6EFF" : "#888888"} // blue if focused, else gray
             />
           ),
@@ -49,7 +49,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name="person"
-              size={28}
+              size={20}
               color={focused ? "#2A6EFF" : "#888888"}
             />
           ),
@@ -63,7 +63,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
               name="settings"
-              size={28}
+              size={20}
               color={focused ? "#2A6EFF" : "#888888"}
             />
           ),
