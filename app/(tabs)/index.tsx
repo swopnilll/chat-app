@@ -1,20 +1,28 @@
-import { StyleSheet, View } from "react-native";
-
+import ConversationUnit from "@/components/conversation/ConversationUnit";
 import Header from "@/components/ui/Header";
-import UserAvatar from "@/components/ui/UserAvator";
+import { mockConversations } from "@/constants/users";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 
 export default function ConversationScreen() {
   return (
     <View style={styles.container}>
-      <View>
-        <Header title="Conversation" />
-      </View>
-      <UserAvatar
-        size={60}
-        imageUrl="https://gravatar.com/avatar/27205e5c51cb03f862138b22bcb5dc20f94a342e744ff6df1b8dc8af3c865109"
-        name="Swopnil Acharya"
-      />
+      <Header title="Conversation" />
+      <ScrollView style={styles.scrollArea}>
+        {mockConversations.map((item) => (
+          <ConversationUnit
+            key={item.id}
+            name={item.name}
+            message={item.message}
+            avatarUrl={item.avatarUrl}
+            seen={item.seen}
+            isImage={item.isImage}
+            isAudio={item.isAudio}
+            duration={item.duration}
+            isSentByUser={item.isSentByUser}
+          />
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -24,5 +32,9 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     backgroundColor: "#fff",
     flex: 1,
+  },
+  scrollArea: {
+    flex: 1,
+    marginBottom: 70
   },
 });
