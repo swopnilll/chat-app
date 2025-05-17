@@ -36,7 +36,7 @@ export default function RootLayout() {
   }, [authChecked, isAuthenticated]);
 
   if (!loaded || !authChecked) {
-    return null; // Could replace with SplashScreen or loading indicator
+    return null; 
   }
 
   return (

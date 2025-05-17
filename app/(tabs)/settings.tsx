@@ -1,25 +1,21 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
-import { logoutUser } from "@/firebaseConfig";
-import { router } from "expo-router";
+import Header from "@/components/ui/Header";
 
 export default function SettingsScreen() {
-  const handleClick = async () => {
-    await logoutUser();
 
-    router.replace("/login");
-  };
 
   return (
-    <ParallaxScrollView>
-      <ThemedView>
-        <ThemedText onPress={handleClick}>Settings Page</ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Header title="Settings" islogOutButtonRequired={true} />
+    </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 40,
+    backgroundColor: "#fff",
+    flex: 1,
+  },
+});

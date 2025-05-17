@@ -1,23 +1,19 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import Header from "@/components/ui/Header";
 
 export default function ContactScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#D0D0D0", dark: "#353636" }}
-    >
-      <ThemedView>
-        <ThemedText>
-          Contacts Page
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Header title="Contacts" />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    paddingTop: 40,
+    backgroundColor: "#fff",
+    flex: 1,
+  },
 });
