@@ -148,11 +148,11 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     backgroundColor: "#fff",
     flex: 1,
-    paddingHorizontal: 16,
   },
   scrollArea: {
     flex: 1,
     marginBottom: 70,
+    paddingHorizontal: 16,
   },
   sectionHeader: {
     fontWeight: "bold",
