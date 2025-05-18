@@ -113,6 +113,19 @@ const groupedContacts = {
 export default function ContactScreen() {
   const [search, setSearch] = useState("");
 
+  const filteredContacts = Object.entries(groupedContacts).reduce(
+    (acc, [letter, contacts]) => {
+      const filtered = contacts.filter((contact) =>
+        contact.name.toLowerCase().includes(search.toLowerCase())
+      );
+      if (filtered.length > 0) {
+        acc[letter] = filtered;
+      }
+      return acc;
+    },
+    {} as Record<string, Array<{ id: string; name: string; status: string; avatarUrl: string }>>
+  );
+
   return (
     <View style={styles.container}>
       <Header title="Contacts" />
@@ -124,7 +137,7 @@ export default function ContactScreen() {
       />
 
       <ScrollView style={styles.scrollArea}>
-        {Object.entries(groupedContacts).map(([letter, contacts]) => (
+        {Object.entries(filteredContacts).map(([letter, contacts]) => (
           <View key={letter}>
             <Text style={styles.sectionHeader}>{letter}</Text>
             {contacts.map(({ id, name, status, avatarUrl }) => (
