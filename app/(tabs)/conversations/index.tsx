@@ -7,7 +7,11 @@ import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function ConversationScreen() {
   const [search, setSearch] = useState("");
-  
+
+  const filteredConversations = mockConversations.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <View style={styles.container}>
       <Header title="Conversation" />
@@ -17,9 +21,9 @@ export default function ConversationScreen() {
         onChangeText={setSearch}
         onClear={() => setSearch("")}
       />
-      
+
       <ScrollView style={styles.scrollArea}>
-        {mockConversations.map((item) => (
+        {filteredConversations.map((item) => (
           <ConversationUnit
             key={item.id}
             id={item.id}
