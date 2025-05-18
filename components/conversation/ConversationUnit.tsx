@@ -17,7 +17,6 @@ type ConversationUnitProps = {
 };
 
 const ConversationUnit = ({
-  key,
   id,
   name,
   message,
