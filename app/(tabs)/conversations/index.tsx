@@ -22,6 +22,7 @@ export default function ConversationScreen() {
         {mockConversations.map((item) => (
           <ConversationUnit
             key={item.id}
+            id={item.id}
             name={item.name}
             message={item.message}
             avatarUrl={item.avatarUrl}

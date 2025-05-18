@@ -5,6 +5,7 @@ import UserAvatar from "../ui/UserAvator";
 
 type ConversationUnitProps = {
   key: string | number;
+  id: string | number;
   name: string;
   message: string;
   avatarUrl: string;
@@ -17,6 +18,7 @@ type ConversationUnitProps = {
 
 const ConversationUnit = ({
   key,
+  id,
   name,
   message,
   avatarUrl,
@@ -67,7 +69,7 @@ const ConversationUnit = ({
   };
 
   return (
-    <Pressable style={styles.container} onPress={() => router.push(`/conversations/${key}`)}>
+    <Pressable style={styles.container} onPress={() => router.push(`/conversations/${id}`)}>
       <UserAvatar size={60} imageUrl={avatarUrl} name={name} />
 
       <View style={styles.textContainer}>
