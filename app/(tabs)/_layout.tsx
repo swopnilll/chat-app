@@ -30,7 +30,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="conversations"
         options={{
           title: "Conversations",
           tabBarIcon: ({ color, focused }) => (
@@ -40,6 +40,7 @@ export default function TabLayout() {
               color={focused ? "#2A6EFF" : "#888888"} // blue if focused, else gray
             />
           ),
+          // href: null
         }}
       />
       <Tabs.Screen

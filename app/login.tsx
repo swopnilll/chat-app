@@ -35,7 +35,7 @@ const LoginScreen = () => {
       );
 
       // ✅ Navigate to the authenticated screen (e.g., tab layout)
-      router.replace("/(tabs)");
+      router.replace("/(tabs)/conversations");
     } catch (error) {
       console.error("Login error:", error);
       let errorMessage = "An unknown error occurred.";

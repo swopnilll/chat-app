@@ -1,8 +1,10 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import UserAvatar from "../ui/UserAvator";
 
 type ConversationUnitProps = {
+  key: string | number;
   name: string;
   message: string;
   avatarUrl: string;
@@ -14,6 +16,7 @@ type ConversationUnitProps = {
 };
 
 const ConversationUnit = ({
+  key,
   name,
   message,
   avatarUrl,
@@ -64,7 +67,7 @@ const ConversationUnit = ({
   };
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={() => router.push(`/conversations/${key}`)}>
       <UserAvatar size={60} imageUrl={avatarUrl} name={name} />
 
       <View style={styles.textContainer}>
@@ -78,7 +81,7 @@ const ConversationUnit = ({
         color="#ccc"
         style={styles.rightArrow}
       />
-    </View>
+    </Pressable>
   );
 };
 

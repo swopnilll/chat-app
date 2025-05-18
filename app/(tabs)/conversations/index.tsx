@@ -1,13 +1,23 @@
+import SearchInput from "@/components/common/SearchInput";
 import ConversationUnit from "@/components/conversation/ConversationUnit";
 import Header from "@/components/ui/Header";
 import { mockConversations } from "@/constants/users";
+import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
-
 export default function ConversationScreen() {
+  const [search, setSearch] = useState("");
+  
   return (
     <View style={styles.container}>
       <Header title="Conversation" />
+
+      <SearchInput
+        value={search}
+        onChangeText={setSearch}
+        onClear={() => setSearch("")}
+      />
+      
       <ScrollView style={styles.scrollArea}>
         {mockConversations.map((item) => (
           <ConversationUnit
@@ -35,6 +45,6 @@ const styles = StyleSheet.create({
   },
   scrollArea: {
     flex: 1,
-    marginBottom: 70
+    marginBottom: 70,
   },
 });

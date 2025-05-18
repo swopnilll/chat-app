@@ -30,7 +30,7 @@ export default function RootLayout() {
   useEffect(() => {
     if (authChecked) {
       if (isAuthenticated) {
-        router.replace("/(tabs)"); // Redirect if logged in
+        router.replace("/(tabs)/conversations"); // Redirect if logged in
       }
     }
   }, [authChecked, isAuthenticated]);
