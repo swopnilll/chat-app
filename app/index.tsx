@@ -14,6 +14,7 @@ const LandingScreen = () => {
 
   return (
     <View style={styles.container}>
+      
       {/* Branding */}
       <View style={styles.branding}>
         <View style={styles.logo}>

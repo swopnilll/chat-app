@@ -1,3 +1,4 @@
+import ChatTestLogger from "@/components/ChatTestLogger";
 import SearchInput from "@/components/common/SearchInput";
 import ConversationUnit from "@/components/conversation/ConversationUnit";
 import Header from "@/components/ui/Header";
@@ -14,6 +15,8 @@ export default function ConversationScreen() {
 
   return (
     <View style={styles.container}>
+      <ChatTestLogger />
+      
       <Header title="Conversation" />
 
       <SearchInput

@@ -9,6 +9,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 import { Alert } from "react-native";
 
 
@@ -21,6 +22,7 @@ const firebaseConfig = {
   messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
+  databaseURL: "https://intellectachatapp-default-rtdb.asia-southeast1.firebasedatabase.app" 
 };
 
 // Initialize Firebase
@@ -28,6 +30,8 @@ const app = initializeApp(firebaseConfig);
 
 // Get Auth instance
 export const auth = getAuth(app);
+
+export const database = getDatabase(app);
 
 // Proper function to create user
 export const createUser = async (email, password, fullName) => {
