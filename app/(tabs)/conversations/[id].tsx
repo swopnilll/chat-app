@@ -1,4 +1,6 @@
 import Header from "@/components/ui/Header";
+import { auth, createOrUpdateThread } from "@/firebaseConfig";
+import { useMessages } from "@/hooks/useMessages";
 import { useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import {
@@ -12,33 +14,33 @@ import {
   View,
 } from "react-native";
 
-export default function ConversationPage() {
-  const { id } = useLocalSearchParams();
+type Message = { id: string; sender: string; text: string; timestamp?: number };
 
-  const [messages, setMessages] = useState([
-    { id: "1", sender: "Brooke", text: "Hey Martin!" },
-    { id: "2", sender: "Brooke", text: "How's your project going?" },
-    { id: "3", sender: "Martin", text: "Hi Brooke!" },
-  ]);
+const getOtherUserId = (threadId: string, selfId: string) =>
+  threadId.split("_").find((id) => id !== selfId) || "";
+
+export default function ConversationPage() {
+  const { id: threadId } = useLocalSearchParams<{ id: string }>();
+
+  const messages = useMessages(threadId);
+
   const [input, setInput] = useState("");
 
-  type Message = { id: string; sender: string; text: string };
+  const currentUserId = auth.currentUser?.uid ?? "fallback_id";
 
-  const handleSend = () => {
-    if (input.trim() === "") return;
+  const handleSend = async () => {
+    if (!input.trim()) return;
 
-    const newMessage: Message = {
-      id: Date.now().toString(),
-      sender: "Martin",
-      text: input.trim(),
-    };
-
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    await createOrUpdateThread(
+      currentUserId,
+      getOtherUserId(threadId, currentUserId),
+      input.trim()
+    );
     setInput("");
   };
 
   const renderItem = ({ item }: { item: Message }) => {
-    const isUser = item.sender === "Martin";
+    const isUser = item.sender === currentUserId;
 
     return (
       <View

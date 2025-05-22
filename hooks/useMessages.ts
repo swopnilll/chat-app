@@ -2,7 +2,6 @@ import { database } from "@/firebaseConfig";
 import { off, onValue, ref } from "firebase/database";
 import { useEffect, useState } from "react";
 
-// Define a type for messages
 export type Message = {
   id: string;
   sender: string;
@@ -14,21 +13,21 @@ export const useMessages = (threadId: string) => {
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
-    const messagesRef = ref(database, `chats/${threadId}/messages`);
+    const messagesRef = ref(database, `messages/${threadId}`);
 
     const unsubscribe = onValue(messagesRef, (snapshot) => {
-      const data = snapshot.val() as Record<string, Message>;
-
+      const data = snapshot.val();
       if (!data) {
         setMessages([]);
         return;
       }
 
-      const loadedMessages = Object.values(data).sort(
-        (a, b) => a.timestamp - b.timestamp
-      );
+      const formatted = Object.entries(data).map(([id, msg]: [string, any]) => ({
+        id,
+        ...msg,
+      }));
 
-      setMessages(loadedMessages);
+      setMessages(formatted.sort((a, b) => a.timestamp - b.timestamp));
     });
 
     return () => off(messagesRef);

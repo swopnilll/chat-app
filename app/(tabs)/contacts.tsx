@@ -2,9 +2,17 @@ import SearchInput from "@/components/common/SearchInput";
 
 import Header from "@/components/ui/Header";
 import UserAvatar from "@/components/ui/UserAvator";
+import { auth, createOrUpdateThread } from "@/firebaseConfig";
 import { fetchAllUsers } from "@/services/users/usersService";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const groupedContacts = {
   A: [
@@ -125,6 +133,20 @@ const groupByFirstLetter = (
   }, {} as Record<string, typeof users>);
 };
 
+const startConversation = async (contactId: string) => {
+  const currentUserId = auth.currentUser?.uid;
+  if (!currentUserId) return;
+
+  const sortedIds = [currentUserId, contactId].sort();
+  const threadId = sortedIds.join("_");
+
+  // Optionally create the thread without a message
+  await createOrUpdateThread(currentUserId, contactId, "");
+
+  // Navigate to conversation
+  router.push(`/conversations/${threadId}`);
+};
+
 export default function ContactScreen() {
   const [search, setSearch] = useState("");
   const [allUsers, setAllUsers] = useState([]);
@@ -188,13 +210,17 @@ export default function ContactScreen() {
           <View key={letter}>
             <Text style={styles.sectionHeader}>{letter}</Text>
             {contacts.map(({ id, name, status, avatarUrl }) => (
-              <View key={id} style={styles.contactItem}>
+              <TouchableOpacity
+                key={id}
+                style={styles.contactItem}
+                onPress={() => startConversation(id)}
+              >
                 <UserAvatar size={60} imageUrl={avatarUrl} name={name} />
                 <View style={styles.info}>
                   <Text style={styles.name}>{name}</Text>
                   <Text style={styles.status}>{status}</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </View>
         ))}

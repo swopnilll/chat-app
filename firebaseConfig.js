@@ -9,7 +9,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { getDatabase, push, ref, set, update } from "firebase/database";
+import { getDatabase, onValue, push, ref, set, update } from "firebase/database";
 import { Alert } from "react-native";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -146,26 +146,57 @@ export const updateCurrentUserPhotoUrl = async (photoUrl) => {
 };
 
 // Create chat thread (if doesn't exist)
-export const createThread = async (uid1, uid2, messageText) => {
-  const sortedIds = [uid1, uid2].sort();
+export const createOrUpdateThread = async (
+  senderId,
+  receiverId,
+  messageText
+) => {
+  const sortedIds = [senderId, receiverId].sort();
   const threadId = sortedIds.join("_");
 
-  const chatRef = ref(database, `chats/${threadId}`);
-  const messageRef = push(ref(database, `messages/${threadId}`));
-
   const message = {
-    sender: uid1,
+    sender: senderId,
     text: messageText,
     timestamp: Date.now(),
   };
 
+  const chatRef = ref(database, `chats/${threadId}`);
+  const messageRef = push(ref(database, `messages/${threadId}`));
+
   await update(chatRef, {
     members: {
-      [uid1]: true,
-      [uid2]: true,
+      [senderId]: true,
+      [receiverId]: true,
     },
     lastMessage: message,
   });
 
   await set(messageRef, message);
+
+  return threadId;
+};
+
+export const fetchUserConversations = (callback) => {
+  const uid = auth.currentUser?.uid;
+  if (!uid) return;
+
+  const chatsRef = ref(database, "chats");
+
+  onValue(chatsRef, (snapshot) => {
+    const data = snapshot.val();
+    if (!data) {
+      callback([]);
+      return;
+    }
+
+    const conversations = Object.entries(data)
+      .filter(([threadId, chatData]) => chatData.members && chatData.members[uid])
+      .map(([threadId, chatData]) => ({
+        threadId,
+        lastMessage: chatData.lastMessage || null,
+        members: Object.keys(chatData.members),
+      }));
+
+    callback(conversations);
+  });
 };

@@ -1,15 +1,24 @@
 import SearchInput from "@/components/common/SearchInput";
 import ConversationUnit from "@/components/conversation/ConversationUnit";
 import Header from "@/components/ui/Header";
-import { mockConversations } from "@/constants/users";
-import { useState } from "react";
+import { auth, fetchUserConversations } from "@/firebaseConfig";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 export default function ConversationScreen() {
   const [search, setSearch] = useState("");
+  const [conversations, setConversations] = useState<any[]>([]);
 
-  const filteredConversations = mockConversations.filter((item) =>
-    item.name.toLowerCase().includes(search.toLowerCase())
+  useEffect(() => {
+    fetchUserConversations(setConversations);
+  }, []);
+
+  // const filteredConversations = mockConversations.filter((item) =>
+  //   item.name.toLowerCase().includes(search.toLowerCase())
+  // );
+
+  const filteredConversations = conversations.filter((item) =>
+    item.threadId.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -25,20 +34,26 @@ export default function ConversationScreen() {
       />
 
       <ScrollView style={styles.scrollArea}>
-        {filteredConversations.map((item) => (
-          <ConversationUnit
-            key={item.id}
-            id={item.id}
-            name={item.name}
-            message={item.message}
-            avatarUrl={item.avatarUrl}
-            seen={item.seen}
-            isImage={item.isImage}
-            isAudio={item.isAudio}
-            duration={item.duration}
-            isSentByUser={item.isSentByUser}
-          />
-        ))}
+        {filteredConversations.map((item) => {
+          const otherUserId = item.members.find(
+            (id: string) => id !== auth.currentUser?.uid
+          );
+
+          return (
+            <ConversationUnit
+              key={item.threadId}
+              id={item.threadId}
+              name={otherUserId}
+              message={item.lastMessage?.text}
+              avatarUrl={item.photoURL}
+              seen={item.seen}
+              isImage={false}
+              isAudio={false}
+              duration={""}
+              isSentByUser={item.lastMessage?.sender === auth.currentUser?.uid}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );
