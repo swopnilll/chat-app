@@ -2,7 +2,8 @@ import SearchInput from "@/components/common/SearchInput";
 
 import Header from "@/components/ui/Header";
 import UserAvatar from "@/components/ui/UserAvator";
-import { useState } from "react";
+import { fetchAllUsers } from "@/services/users/usersService";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
 const groupedContacts = {
@@ -110,10 +111,53 @@ const groupedContacts = {
   ],
 };
 
+const groupByFirstLetter = (
+  users: Array<{ id: string; name: string; status: string; avatarUrl: string }>
+) => {
+  return users.reduce((acc, user) => {
+    const letter = user.name[0].toUpperCase();
+
+    if (!acc[letter]) acc[letter] = [];
+
+    acc[letter].push(user);
+
+    return acc;
+  }, {} as Record<string, typeof users>);
+};
+
 export default function ContactScreen() {
   const [search, setSearch] = useState("");
+  const [allUsers, setAllUsers] = useState([]);
 
-  const filteredContacts = Object.entries(groupedContacts).reduce(
+  // Static contacts (flattened from groupedContacts)
+  const staticContacts = Object.values(groupedContacts).flat();
+
+  // Fetch users once
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await fetchAllUsers();
+      if (data?.users) {
+        const mappedUsers = data.users.map((user: any) => ({
+          id: user.uid,
+          name: user.displayName,
+          status: user.email || "Available", // fallback if no status
+          avatarUrl: user.photoURL ?? "",    // default fallback
+        }));
+        setAllUsers(mappedUsers);
+      }
+    };
+
+    getUsers();
+  }, []);
+
+  // Combine static + fetched users
+  const combinedUsers = [...staticContacts, ...allUsers];
+
+  // Group all users by first letter
+  const groupedCombinedContacts = groupByFirstLetter(combinedUsers);
+
+  // Filter based on search input
+  const filteredContacts = Object.entries(groupedCombinedContacts).reduce(
     (acc, [letter, contacts]) => {
       const filtered = contacts.filter((contact) =>
         contact.name.toLowerCase().includes(search.toLowerCase())
@@ -123,7 +167,10 @@ export default function ContactScreen() {
       }
       return acc;
     },
-    {} as Record<string, Array<{ id: string; name: string; status: string; avatarUrl: string }>>
+    {} as Record<
+      string,
+      Array<{ id: string; name: string; status: string; avatarUrl: string }>
+    >
   );
 
   return (
@@ -155,6 +202,7 @@ export default function ContactScreen() {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

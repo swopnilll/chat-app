@@ -2,26 +2,11 @@ import SearchInput from "@/components/common/SearchInput";
 import ConversationUnit from "@/components/conversation/ConversationUnit";
 import Header from "@/components/ui/Header";
 import { mockConversations } from "@/constants/users";
-import { callHelloWorld } from "@/services/users/usersService";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-
-
 
 export default function ConversationScreen() {
   const [search, setSearch] = useState("");
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await callHelloWorld();
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, [])
 
   const filteredConversations = mockConversations.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
@@ -30,7 +15,7 @@ export default function ConversationScreen() {
   return (
     <View style={styles.container}>
       {/* <ChatTestLogger /> */}
-      
+
       <Header title="Conversation" />
 
       <SearchInput
