@@ -1,0 +1,13 @@
+export const callHelloWorld = async () => {
+  try {
+    // Get your local IP (e.g., 192.168.0.101)
+    const response = await fetch(
+      "http://localhost:5001/intellectachatapp/us-central1/getAllUsers"
+    );
+
+    const text = await response.text();
+    console.log("Response from Firebase Function:", text);
+  } catch (error) {
+    console.error("Error calling Firebase Function:", error);
+  }
+};
