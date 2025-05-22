@@ -81,3 +81,38 @@ export const resetPassword = async (email) => {
     Alert.alert("Error", "Failed to send password reset email.");
   }
 }
+
+
+/**
+ * Updates the profile photo URL for the currently signed-in user.
+ * This function should be called after the user has successfully logged in.
+ * @param photoUrl The new URL for the user's profile photo. Provide null to remove the photo.
+ * @returns Promise<void> Resolves when the update is complete, or rejects if an error occurs or no user is signed in.
+ */
+export const updateCurrentUserPhotoUrl = async (photoUrl) => {
+  // Get the currently signed-in user from the auth instance
+  const user = auth.currentUser;
+
+  if (user) {
+    try {
+      // Call updateProfile on the currently signed-in user object
+      await updateProfile(user, {
+        photoURL: photoUrl,
+
+      });
+
+      console.log("Currently signed-in user's profile photo URL updated successfully!");
+
+
+    } catch (error) {
+      console.error("Error updating current user's profile photo URL:", error);
+
+      throw error;
+    }
+  } else {
+    console.warn("No user is currently signed in. Cannot update profile photo URL.");
+
+    throw new Error("No user is signed in.");
+  }
+};
+// ==============================================
