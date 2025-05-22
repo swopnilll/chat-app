@@ -141,7 +141,7 @@ export default function ContactScreen() {
           id: user.uid,
           name: user.displayName,
           status: user.email || "Available", // fallback if no status
-          avatarUrl: user.photoURL ?? "",    // default fallback
+          avatarUrl: user.photoURL ?? "", // default fallback
         }));
         setAllUsers(mappedUsers);
       }
@@ -202,7 +202,6 @@ export default function ContactScreen() {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
