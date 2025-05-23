@@ -1,11 +1,15 @@
 import Header from "@/components/ui/Header";
+import { auth, getUserProfile, updateUserProfile } from "@/firebaseConfig";
 import { uploadToCloudinary } from "@/services/ImageUpload";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Image,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -13,6 +17,52 @@ import {
 export default function SettingsScreen() {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [fullName, setFullName] = useState("");
+  const [status, setStatus] = useState("");
+  const [loadingProfile, setLoadingProfile] = useState(true);
+  const [updating, setUpdating] = useState(false);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const user = auth.currentUser;
+        if (!user) throw new Error("No signed-in user");
+
+        const data = await getUserProfile(user.uid);
+        setFullName(data.displayName || "");
+        setStatus(data.status || "");
+        setImageUrl(data.imageUrl || null);
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+        Alert.alert("Error", "Could not load profile data");
+      } finally {
+        setLoadingProfile(false);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  const handleUpdateProfile = async () => {
+    setUpdating(true);
+    try {
+      await updateUserProfile({ fullName, status });
+      Alert.alert("Success", "Profile updated successfully");
+    } catch (error) {
+      console.error("Update failed:", error);
+      Alert.alert("Error", "Could not update profile");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  if (loadingProfile) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#007AFF" />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -40,6 +90,32 @@ export default function SettingsScreen() {
         >
           <Text style={styles.uploadButtonText}>Choose & Upload Image</Text>
         </TouchableOpacity>
+
+        <TextInput
+          style={styles.input}
+          placeholder="Full Name"
+          value={fullName}
+          onChangeText={setFullName}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Status"
+          value={status}
+          onChangeText={setStatus}
+        />
+
+        <TouchableOpacity
+          style={styles.updateButton}
+          onPress={handleUpdateProfile}
+          disabled={updating}
+        >
+          {updating ? (
+            <ActivityIndicator color="#fff" />
+          ) : (
+            <Text style={styles.updateButtonText}>Update Profile</Text>
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -51,9 +127,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     flex: 1,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   content: {
     alignItems: "center",
-    marginTop: 40,
+    marginTop: 30,
   },
   imageContainer: {
     width: 160,
@@ -88,6 +169,27 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   uploadButtonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  input: {
+    width: "80%",
+    height: 50,
+    borderColor: "#ccc",
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginTop: 20,
+    fontSize: 16,
+  },
+  updateButton: {
+    marginTop: 30,
+    backgroundColor: "#34C759",
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 10,
+  },
+  updateButtonText: {
     color: "#fff",
     fontSize: 16,
   },

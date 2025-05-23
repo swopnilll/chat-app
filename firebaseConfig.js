@@ -9,7 +9,15 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { getDatabase, onValue, push, ref, set, update } from "firebase/database";
+import {
+  get,
+  getDatabase,
+  onValue,
+  push,
+  ref,
+  set,
+  update,
+} from "firebase/database";
 import { Alert } from "react-native";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -218,3 +226,43 @@ export const fetchUserConversations = (callback) => {
   });
 };
 
+export const getUserProfile = async (userId) => {
+  const db = getDatabase();
+  const userRef = ref(db, `userProfiles/${userId}`);
+
+  const snapshot = await get(userRef);
+
+  if (!snapshot.exists()) {
+    throw new Error("Profile does not exist");
+  }
+
+  return snapshot.val();
+};
+
+export const updateUserProfile = async ({ fullName, status }) => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    console.warn("No user is currently signed in.");
+    throw new Error("No user is signed in.");
+  }
+
+  try {
+    await updateProfile(user, {
+      displayName: fullName,
+    });
+
+    const userRef = ref(database, `userProfiles/${user.uid}`);
+
+    await update(userRef, {
+      fullName,
+      status,
+      updatedAt: Date.now(),
+    });
+
+    console.log("✅ Full name and status updated in both Auth and Realtime DB!");
+  } catch (error) {
+    console.error("Error updating user profile:", error);
+    throw error;
+  }
+};
