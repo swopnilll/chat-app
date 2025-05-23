@@ -266,3 +266,26 @@ export const updateUserProfile = async ({ fullName, status }) => {
     throw error;
   }
 };
+
+export const getAllUserProfiles = async () => {
+  const usersRef = ref(database, "userProfiles");
+
+  try {
+    const snapshot = await get(usersRef);
+
+    if (!snapshot.exists()) {
+      console.warn("⚠️ No user profiles found.");
+      return [];
+    }
+
+    const data = snapshot.val();
+
+    return Object.entries(data).map(([uid, profile]) => ({
+      uid,
+      ...profile,
+    }));
+  } catch (error) {
+    console.error("❌ Error fetching all user profiles:", error);
+    throw error;
+  }
+};

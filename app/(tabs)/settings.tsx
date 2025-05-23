@@ -29,9 +29,12 @@ export default function SettingsScreen() {
         if (!user) throw new Error("No signed-in user");
 
         const data = await getUserProfile(user.uid);
+
+        console.log("Fetched profile data:", data);
+
         setFullName(data.displayName || "");
         setStatus(data.status || "");
-        setImageUrl(data.imageUrl || null);
+        setImageUrl(data.photoURL || null);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
         Alert.alert("Error", "Could not load profile data");
@@ -123,9 +126,9 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
-    backgroundColor: "#fff",
     flex: 1,
+    paddingTop: 50,
+    backgroundColor: "#F9FAFB",
   },
   loadingContainer: {
     flex: 1,
@@ -134,22 +137,27 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: "center",
-    marginTop: 30,
+    paddingHorizontal: 20,
+    paddingTop: 30,
   },
   imageContainer: {
-    width: 160,
-    height: 160,
-    borderRadius: 80,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
     overflow: "hidden",
-    backgroundColor: "#eee",
+    backgroundColor: "#E5E7EB",
     justifyContent: "center",
     alignItems: "center",
-    borderWidth: 2,
-    borderColor: "#007AFF",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 5,
   },
   image: {
-    width: "100%",
-    height: "100%",
+    width: 150,
+    height: 150,
+    borderRadius: 75,
   },
   placeholder: {
     justifyContent: "center",
@@ -158,39 +166,54 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   placeholderText: {
-    color: "#999",
+    color: "#6B7280",
+    fontSize: 14,
     textAlign: "center",
   },
   uploadButton: {
     marginTop: 20,
-    padding: 12,
-    backgroundColor: "#007AFF",
-    borderRadius: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    backgroundColor: "#2563EB",
+    borderRadius: 12,
+    shadowColor: "#2563EB",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
   uploadButtonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 16,
+    fontWeight: "600",
   },
   input: {
-    width: "80%",
-    height: 50,
-    borderColor: "#ccc",
+    width: "100%",
+    height: 52,
+    borderColor: "#D1D5DB",
     borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 15,
+    borderRadius: 12,
+    paddingHorizontal: 16,
     marginTop: 20,
     fontSize: 16,
+    backgroundColor: "#FFFFFF",
   },
   updateButton: {
     marginTop: 30,
-    backgroundColor: "#34C759",
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 10,
+    backgroundColor: "#10B981",
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    shadowColor: "#10B981",
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
   updateButtonText: {
-    color: "#fff",
+    color: "#FFFFFF",
     fontSize: 16,
+    fontWeight: "600",
   },
 });
+
