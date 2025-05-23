@@ -13,18 +13,12 @@ export default function ConversationScreen() {
     fetchUserConversations(setConversations);
   }, []);
 
-  // const filteredConversations = mockConversations.filter((item) =>
-  //   item.name.toLowerCase().includes(search.toLowerCase())
-  // );
-
   const filteredConversations = conversations.filter((item) =>
-    item.threadId.toLowerCase().includes(search.toLowerCase())
+    item.displayName?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <View style={styles.container}>
-      {/* <ChatTestLogger /> */}
-
       <Header title="Conversation" />
 
       <SearchInput
@@ -34,26 +28,20 @@ export default function ConversationScreen() {
       />
 
       <ScrollView style={styles.scrollArea}>
-        {filteredConversations.map((item) => {
-          const otherUserId = item.members.find(
-            (id: string) => id !== auth.currentUser?.uid
-          );
-
-          return (
-            <ConversationUnit
-              key={item.threadId}
-              id={item.threadId}
-              name={otherUserId}
-              message={item.lastMessage?.text}
-              avatarUrl={item.photoURL}
-              seen={item.seen}
-              isImage={false}
-              isAudio={false}
-              duration={""}
-              isSentByUser={item.lastMessage?.sender === auth.currentUser?.uid}
-            />
-          );
-        })}
+        {filteredConversations.map((item) => (
+          <ConversationUnit
+            key={item.threadId}
+            id={item.threadId}
+            name={item.displayName}
+            message={item.lastMessage?.text || ""}
+            avatarUrl={item.photoURL}
+            seen={item.seen}
+            isImage={false}
+            isAudio={false}
+            duration={""}
+            isSentByUser={item.lastMessage?.sender === auth.currentUser?.uid}
+          />
+        ))}
       </ScrollView>
     </View>
   );

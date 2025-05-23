@@ -181,6 +181,7 @@ export const fetchUserConversations = (callback) => {
   if (!uid) return;
 
   const chatsRef = ref(database, "chats");
+  const profilesRef = ref(database, "userProfiles");
 
   onValue(chatsRef, (snapshot) => {
     const data = snapshot.val();
@@ -189,14 +190,31 @@ export const fetchUserConversations = (callback) => {
       return;
     }
 
-    const conversations = Object.entries(data)
-      .filter(([threadId, chatData]) => chatData.members && chatData.members[uid])
+    const allConversations = Object.entries(data)
+      .filter(([_, chatData]) => chatData.members && chatData.members[uid])
       .map(([threadId, chatData]) => ({
         threadId,
         lastMessage: chatData.lastMessage || null,
         members: Object.keys(chatData.members),
       }));
 
-    callback(conversations);
+    // Fetch userProfiles once to map user IDs to names/photos
+    onValue(profilesRef, (profilesSnapshot) => {
+      const profiles = profilesSnapshot.val() || {};
+
+      const enriched = allConversations.map((conv) => {
+        const otherUserId = conv.members.find((id) => id !== uid);
+        const otherUser = profiles[otherUserId] || {};
+        return {
+          ...conv,
+          otherUserId,
+          displayName: otherUser.displayName || "Unknown",
+          photoURL: otherUser.photoURL || "",
+        };
+      });
+
+      callback(enriched);
+    });
   });
 };
+
