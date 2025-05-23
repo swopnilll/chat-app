@@ -141,7 +141,7 @@ const startConversation = async (contactId: string) => {
   const threadId = sortedIds.join("_");
 
   // Optionally create the thread without a message
-  await createOrUpdateThread(currentUserId, contactId, "");
+  await createOrUpdateThread(currentUserId, contactId);
 
   // Navigate to conversation
   router.push(`/conversations/${threadId}`);

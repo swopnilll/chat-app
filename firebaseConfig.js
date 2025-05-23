@@ -154,32 +154,51 @@ export const updateCurrentUserPhotoUrl = async (photoUrl) => {
 };
 
 // Create chat thread (if doesn't exist)
+
 export const createOrUpdateThread = async (
   senderId,
   receiverId,
   messageText
 ) => {
+  // Basic validations
+  if (!senderId || !receiverId) {
+    throw new Error("Sender and receiver IDs must be provided");
+  }
+
   const sortedIds = [senderId, receiverId].sort();
   const threadId = sortedIds.join("_");
 
-  const message = {
-    sender: senderId,
-    text: messageText,
-    timestamp: Date.now(),
-  };
-
   const chatRef = ref(database, `chats/${threadId}`);
-  const messageRef = push(ref(database, `messages/${threadId}`));
+  const messagesRef = ref(database, `messages/${threadId}`);
 
-  await update(chatRef, {
+  // Always ensure the thread exists with member info
+  const chatData = {
     members: {
       [senderId]: true,
       [receiverId]: true,
     },
-    lastMessage: message,
-  });
+  };
 
-  await set(messageRef, message);
+  const updates = { ...chatData };
+
+  // If message is non-empty, attach lastMessage
+  const trimmedMessage = messageText?.trim();
+  if (trimmedMessage) {
+    const message = {
+      sender: senderId,
+      text: trimmedMessage,
+      timestamp: Date.now(),
+    };
+
+    updates.lastMessage = message;
+
+    // Push new message to messages list
+    const messageRef = push(messagesRef);
+    await set(messageRef, message);
+  }
+
+  // Update chat metadata
+  await update(chatRef, updates);
 
   return threadId;
 };
@@ -260,7 +279,9 @@ export const updateUserProfile = async ({ fullName, status }) => {
       updatedAt: Date.now(),
     });
 
-    console.log("✅ Full name and status updated in both Auth and Realtime DB!");
+    console.log(
+      "✅ Full name and status updated in both Auth and Realtime DB!"
+    );
   } catch (error) {
     console.error("Error updating user profile:", error);
     throw error;

@@ -1,0 +1,254 @@
+{
+  "chats": {
+    "JGPiERIBLZRQnziJFtR4POTITF23_PrU30cEMhVfsull22M5xIBfug3g1": {
+      "lastMessage": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Can you please cook food today ?",
+        "timestamp": 1747979073783
+      },
+      "members": {
+        "JGPiERIBLZRQnziJFtR4POTITF23": true,
+        "PrU30cEMhVfsull22M5xIBfug3g1": true
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_TYXEXI8pgsdALip9PGnK05aReJv2": {
+      "lastMessage": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Enjoy your Bali Trip",
+        "timestamp": 1747978418450
+      },
+      "members": {
+        "JGPiERIBLZRQnziJFtR4POTITF23": true,
+        "TYXEXI8pgsdALip9PGnK05aReJv2": true
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_WiVebpGcGKRBUprTojKM3PdEiA02": {
+      "lastMessage": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Study Well",
+        "timestamp": 1747978557836
+      },
+      "members": {
+        "JGPiERIBLZRQnziJFtR4POTITF23": true,
+        "WiVebpGcGKRBUprTojKM3PdEiA02": true
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_hyYmSfMA1LYlpiYko50rpnCqE7A3": {
+      "lastMessage": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Beer or whisky this Friday ?",
+        "timestamp": 1747978545617
+      },
+      "members": {
+        "JGPiERIBLZRQnziJFtR4POTITF23": true,
+        "hyYmSfMA1LYlpiYko50rpnCqE7A3": true
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_pn2MoBIRtdN4r3djp09Zu5rFZnq2": {
+      "lastMessage": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Let’s go and get some air",
+        "timestamp": 1747978524784
+      },
+      "members": {
+        "JGPiERIBLZRQnziJFtR4POTITF23": true,
+        "pn2MoBIRtdN4r3djp09Zu5rFZnq2": true
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_rlcEUj3WYAZJ1w0pdqY11XTmnns2": {
+      "lastMessage": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "I need your letter for sick leave",
+        "timestamp": 1747978453759
+      },
+      "members": {
+        "JGPiERIBLZRQnziJFtR4POTITF23": true,
+        "rlcEUj3WYAZJ1w0pdqY11XTmnns2": true
+      }
+    }
+  },
+  "messages": {
+    "JGPiERIBLZRQnziJFtR4POTITF23_PrU30cEMhVfsull22M5xIBfug3g1": {
+      "-OQsZLKdk5Q7_0RXxS7Q": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "",
+        "timestamp": 1747927000501
+      },
+      "-OQsZMwNThCunBaihkAf": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Hi",
+        "timestamp": 1747927007079
+      },
+      "-OQvZ_9ijQ3ZfHdJOmTU": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "How are you ?",
+        "timestamp": 1747977392796
+      },
+      "-OQvch0XcWTOYZZ7LQ1a": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Hello",
+        "timestamp": 1747978473583
+      },
+      "-OQvezYef5iuj9G5063c": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Can you please cook food today ?",
+        "timestamp": 1747979073783
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_TYXEXI8pgsdALip9PGnK05aReJv2": {
+      "-OQvcFnEP85qV0i_42XV": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "",
+        "timestamp": 1747978357978
+      },
+      "-OQvcUZ40j5ZGAfNF_4s": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Enjoy your Bali Trip",
+        "timestamp": 1747978418450
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_WiVebpGcGKRBUprTojKM3PdEiA02": {
+      "-OQvZVLyFvdrY-rHpH8a": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "",
+        "timestamp": 1747977373100
+      },
+      "-OQvZWK0nHGx0zw3ZMYZ": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Hello",
+        "timestamp": 1747977377072
+      },
+      "-OQvd0_zCoiWu7bWPlkw": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Study Well",
+        "timestamp": 1747978557836
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_hyYmSfMA1LYlpiYko50rpnCqE7A3": {
+      "-OQvaHuJHfv2nm4JL_ro": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "",
+        "timestamp": 1747977842308
+      },
+      "-OQvaJbRDD_kq1myR1Tz": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Hello Aashish what’s up ?",
+        "timestamp": 1747977849293
+      },
+      "-OQvcyb38x3_ICQ7EZvf": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Beer or whisky this Friday ?",
+        "timestamp": 1747978545617
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_pn2MoBIRtdN4r3djp09Zu5rFZnq2": {
+      "-OQv_V9AWADhIkSFbXJg": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "",
+        "timestamp": 1747977634430
+      },
+      "-OQv_W7m1gFoi-TpTJJC": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Hello Suraj",
+        "timestamp": 1747977638439
+      },
+      "-OQvctWYQHIcYNZxfAnM": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "Let’s go and get some air",
+        "timestamp": 1747978524784
+      }
+    },
+    "JGPiERIBLZRQnziJFtR4POTITF23_rlcEUj3WYAZJ1w0pdqY11XTmnns2": {
+      "-OQvcWJSczRngMLawNzT": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "",
+        "timestamp": 1747978425642
+      },
+      "-OQvccAnxoLIJtqg3ndg": {
+        "sender": "JGPiERIBLZRQnziJFtR4POTITF23",
+        "text": "I need your letter for sick leave",
+        "timestamp": 1747978453759
+      }
+    }
+  },
+  "userProfiles": {
+    "JGPiERIBLZRQnziJFtR4POTITF23": {
+      "createdAt": 1747924778236,
+      "displayName": "Swopnil Acharya",
+      "email": "swopnilacharya@gmail.com",
+      "fullName": "Swopnil Acharya",
+      "isOnline": true,
+      "lastSeen": 1747924778236,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747977010/puesiunky8fgbpupqhkv.jpg",
+      "status": "Keep calm and code on",
+      "uid": "JGPiERIBLZRQnziJFtR4POTITF23",
+      "updatedAt": 1747979987879
+    },
+    "PrU30cEMhVfsull22M5xIBfug3g1": {
+      "createdAt": 1747924886062,
+      "displayName": "Pratigya Sharma",
+      "email": "spratigya.1996@gmail.com",
+      "fullName": "Pratigya Sharma",
+      "isOnline": true,
+      "lastSeen": 1747924886062,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747977295/dzi63v89wipzmseypead.jpg",
+      "status": "Public Health 🧪💉😷: Preventing problems before you even know they exist ",
+      "uid": "PrU30cEMhVfsull22M5xIBfug3g1",
+      "updatedAt": 1747980499266
+    },
+    "TYXEXI8pgsdALip9PGnK05aReJv2": {
+      "createdAt": 1747978106875,
+      "displayName": "Deekshya khatiwada",
+      "email": "deekshya@gmail.com",
+      "isOnline": true,
+      "lastSeen": 1747978106875,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747978165/lasumbzknszexsfxwo6s.jpg",
+      "status": "Available",
+      "uid": "TYXEXI8pgsdALip9PGnK05aReJv2"
+    },
+    "WiVebpGcGKRBUprTojKM3PdEiA02": {
+      "createdAt": 1747977075512,
+      "displayName": "Serene Acharya",
+      "email": "serene@gmail.com",
+      "isOnline": true,
+      "lastSeen": 1747977075512,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747977220/z3iyxruioknv1yc76pbb.jpg",
+      "status": "Available",
+      "uid": "WiVebpGcGKRBUprTojKM3PdEiA02"
+    },
+    "hyYmSfMA1LYlpiYko50rpnCqE7A3": {
+      "createdAt": 1747977692639,
+      "displayName": "Aashish Gyawali",
+      "email": "aashish@gmail.com",
+      "fullName": "Aashish Gyawali",
+      "isOnline": true,
+      "lastSeen": 1747977692639,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747977758/ex9gvdwuwxe2u2e9z8w5.jpg",
+      "status": "Coding the future, one bug at a time.",
+      "uid": "hyYmSfMA1LYlpiYko50rpnCqE7A3",
+      "updatedAt": 1747980605366
+    },
+    "pn2MoBIRtdN4r3djp09Zu5rFZnq2": {
+      "createdAt": 1747977524898,
+      "displayName": "Suraj Regmi",
+      "email": "suraj@gmail.com",
+      "isOnline": true,
+      "lastSeen": 1747977524898,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747977565/qpopuxle9xeskrsbfk05.jpg",
+      "status": "Available",
+      "uid": "pn2MoBIRtdN4r3djp09Zu5rFZnq2"
+    },
+    "rlcEUj3WYAZJ1w0pdqY11XTmnns2": {
+      "createdAt": 1747978238005,
+      "displayName": "Shriya Bista",
+      "email": "shriya@gmail.com",
+      "fullName": "Shriya Bista",
+      "isOnline": true,
+      "lastSeen": 1747978238005,
+      "photoURL": "https://res.cloudinary.com/dpf6ojj09/image/upload/v1747978314/v404haoxntxsfmlkp7kw.jpg",
+      "status": "🩺 I’m a doctor, not your sick leave dealer! 😎",
+      "uid": "rlcEUj3WYAZJ1w0pdqY11XTmnns2",
+      "updatedAt": 1747980399176
+    }
+  }
+}
